@@ -7,54 +7,60 @@ var letters = [
     "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o",
     "p","q","r","s","t","u","v","w","x","y","z"
     ];
-document.addEventListener("keyup", "keyPress", false);
-resetGame();
-// display();
 
-//document.onkeyup = function(event) {
-  function keyPress(event) {
-    console.log("keyPress function");
+resetGame();
+display();
+
+document.onkeyup = function(event) {
+//console.log("keyPress function");
     var guess = event.key;
     console.log("key pressed " + guess);
     if (guess === letterToGuess) {
       win();
-    } else if (guessesLeft - 1 === 0) {
-      lost();
     } else {
       fail(guess);
     }
   
-    // display();
+    
   }
 
- document.getElementById("fuck-this").innerHTML = "what the fuck";
-
-  // function display() {
-  //   var winsP = document.getElementById("wins");
-  //   var lossesP = document.getElementById("losses");
-  //   var guessLeft = document.getElementById("guessLeft");
-  //   var letterGuessed = document.getElementById("guessed");
-  //   winsP.innerHTML = wins;
-  //   lossesP.innerHTML = losses;
-  //   guessLeft.innerHTML = guessesLeft;
-  //   letterGuessed.innerHTML = guessedLetters.join(',');
-  // }
+   function display() {
+     var winsP = document.getElementById("wins");
+     var lossesP = document.getElementById("losses");
+     var guessLeft = document.getElementById("guessLeft");
+     var letterGuessed = document.getElementById("guessed");
+     winsP.innerHTML = wins;
+     lossesP.innerHTML = losses;
+     guessLeft.innerHTML = guessesLeft;
+     letterGuessed.innerHTML = guessedLetters.join(',');
+   }
   
-  function win() {
-    wins++;
-    resetGame();
+   function win() {
+     console.log("you won");
+      wins++;
+      document.getElementById("wins").innerHTML = wins;
+      resetGame();
   }
   
   function lost() {
-    losses++;
-    resetGame();
+    console.log("you lost");
+     losses++;
+     document.getElementById("losses").innerHTML = losses;
+     resetGame();
   }
   
   function fail(letter) {
     guessesLeft--;
+    document.getElementById("guessLeft").innerHTML = guessesLeft;
     guessedLetters.push(letter);
-  }
-  
+    for (var i = 0; i < guessedLetters.length; i++){
+      document.getElementById("guessed").innerHTML = guessedLetters[i];
+    }
+    if(guessesLeft === 0) {
+      lost();
+    }    
+
+}
   function resetGame() {
     guessesLeft = 9;
     guessedLetters = [];
@@ -62,4 +68,3 @@ resetGame();
     console.log("Letter to guess: " + letterToGuess);
   }
 
-  //I don't know why it's not working
